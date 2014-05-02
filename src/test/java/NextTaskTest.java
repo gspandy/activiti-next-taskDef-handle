@@ -98,6 +98,7 @@ public class NextTaskTest extends AbstractBaseTest {
             taskService.complete(task.getId());
 
         }
+        showTasks();
     }
 
 
