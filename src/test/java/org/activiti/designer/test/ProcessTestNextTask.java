@@ -16,7 +16,6 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.test.Deployment;
 import org.junit.Before;
 import org.junit.Test;
 
