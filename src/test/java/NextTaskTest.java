@@ -41,6 +41,14 @@ public class NextTaskTest extends AbstractBaseTest {
 
     }
 
+
+    @Test
+    public void showTasks(){
+        taskService.createTaskQuery().list();
+        Long num = taskService.createTaskQuery().count();
+        log.info("共有 {} 条流程",num);
+    }
+
     /**
      * 发起流程
      * @throws Exception
@@ -56,7 +64,7 @@ public class NextTaskTest extends AbstractBaseTest {
         log.info("id " + processInstance.getId() + " "
                 + processInstance.getProcessDefinitionId());
 
-        log.info("共有 " + taskService.createTaskQuery().count() + " 条流程");
+        showTasks();
 
     }
     /**
@@ -73,6 +81,8 @@ public class NextTaskTest extends AbstractBaseTest {
             if(taskDefinition!=null){
 
                 log.info("      下个节点是:" + taskDefinition.getKey());
+            }else{
+                log.info("      下个节点是: 结束节点?");
             }
 
         }
