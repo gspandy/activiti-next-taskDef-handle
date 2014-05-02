@@ -5,10 +5,10 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,6 @@ import static org.junit.Assert.assertNotNull;
 /**
  * @author  izerui.com
  */
-@Transactional
 public class NextTaskTest extends AbstractBaseTest {
 
     @Autowired
@@ -42,7 +41,7 @@ public class NextTaskTest extends AbstractBaseTest {
     }
 
 
-    @Test
+    @After
     public void showTasks(){
         taskService.createTaskQuery().list();
         Long num = taskService.createTaskQuery().count();
@@ -64,7 +63,6 @@ public class NextTaskTest extends AbstractBaseTest {
         log.info("id " + processInstance.getId() + " "
                 + processInstance.getProcessDefinitionId());
 
-        showTasks();
 
     }
     /**
@@ -98,7 +96,6 @@ public class NextTaskTest extends AbstractBaseTest {
             taskService.complete(task.getId());
 
         }
-        showTasks();
     }
 
 

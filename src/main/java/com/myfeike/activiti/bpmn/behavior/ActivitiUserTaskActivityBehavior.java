@@ -2,7 +2,6 @@ package com.myfeike.activiti.bpmn.behavior;
 
 import com.myfeike.activiti.NextTaskConstans;
 import com.myfeike.activiti.NextTaskException;
-
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.pvm.delegate.ActivityExecution;
 import org.activiti.engine.impl.task.TaskDefinition;
