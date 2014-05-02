@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by izerui.com on 14-5-2.
+ * @author  izerui.com
  */
 @Transactional
 public class NextTaskTest extends AbstractBaseTest {
