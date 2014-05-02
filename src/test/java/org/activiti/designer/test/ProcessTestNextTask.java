@@ -99,32 +99,4 @@ public class ProcessTestNextTask {
 		return taskService.createTaskQuery().list();
 	}
 	
-	private void printSourceAndTargetTaskDefKey(TaskOperateService service){
-		while(getTasks()!=null&&getTasks().size()>0){
-			
-			List<Task> tasks = getTasks();
-			for (final Task task : tasks) {
-				
-				TaskDefinition taskDefinition = service.getNextTaskDefinition(task.getId());
-				System.out.println("当前节点是:"+task.getTaskDefinitionKey());
-				
-				if(taskDefinition!=null){
-					
-					System.out.println("下个节点是:"+taskDefinition.getKey());
-				}
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						taskService.complete(task.getId());
-						
-					}
-				}).start();
-				
-				System.out.println("完成当前任务!");
-				
-			}
-			
-		}
-	}
 }
