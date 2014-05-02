@@ -1,6 +1,6 @@
-package nexttask.bpmn.parse;
+package com.myfeike.activiti.bpmn.parse;
 
-import nexttask.bpmn.behavior.ActivitiUserTaskActivityBehavior;
+import com.myfeike.activiti.bpmn.behavior.ActivitiUserTaskActivityBehavior;
 
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;

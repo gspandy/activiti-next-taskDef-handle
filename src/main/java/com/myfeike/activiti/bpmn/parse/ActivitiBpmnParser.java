@@ -1,4 +1,4 @@
-package nexttask.bpmn.parse;
+package com.myfeike.activiti.bpmn.parse;
 
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.AbstractBehaviorFactory;
