@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.impl.task.TaskDefinition;
 
 /** 

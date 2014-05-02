@@ -8,15 +8,15 @@
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask3" name="User Task" activiti:assignee="kermit"></userTask>
+    <userTask id="usertask3" name="User Task" activiti:assignee="admin"></userTask>
     <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${num>1}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="User Task" activiti:assignee="kermit"></userTask>
+    <userTask id="usertask4" name="User Task" activiti:assignee="admin"></userTask>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="usertask4"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow6" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask5" name="User Task" activiti:assignee="kermit"></userTask>
+    <userTask id="usertask5" name="User Task" activiti:assignee="admin"></userTask>
     <sequenceFlow id="flow7" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="usertask5" targetRef="endevent2"></sequenceFlow>

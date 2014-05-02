@@ -4,7 +4,15 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 				http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+	<bean id="processEngineConfiguration" class=" org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+	
+	
+		<property name="databaseSchemaUpdate" value="true" />
+        <property name="jdbcUrl" value="jdbc:h2:file:TestNextTask;AUTO_SERVER=TRUE" />
+        <property name="jdbcDriver" value="org.h2.Driver" />
+        <property name="jdbcUsername" value="sa" />
+        <property name="jdbcPassword" value="" />
+        
 		
 		<!-- 自定义元素执行行为 -->
         <property name="activityBehaviorFactory">

@@ -9,34 +9,41 @@ import java.util.Map;
 import nexttask.TaskOperateService;
 import nexttask.TaskOperateServiceImpl;
 
+import org.activiti.engine.ProcessEngines;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 public class ProcessTestNextTask {
 
 
-	@Rule
-	public ActivitiRule activitiRule = new ActivitiRule();
-	
 	private RuntimeService runtimeService;
 	private TaskService taskService;
+	private RepositoryService repositoryService;
+	private TaskOperateService taskOperateService;
 	
 	@Before
 	public void init(){
-		runtimeService = activitiRule.getRuntimeService();
-		taskService = activitiRule.getTaskService();
+		runtimeService = ProcessEngines.getDefaultProcessEngine().getRuntimeService();
+		taskService = ProcessEngines.getDefaultProcessEngine().getTaskService();
+		repositoryService = ProcessEngines.getDefaultProcessEngine().getRepositoryService();
+		taskOperateService = new TaskOperateServiceImpl();
+		
+		repositoryService.createDeployment().addClasspathResource("diagrams/NextTask.bpmn").name("nextTask").deploy();
+		
+		
 	}
 
-	
-	@Deployment(resources = {"diagrams/NextTask.bpmn",""})
+	/**
+	 * 发起流程
+	 * @throws Exception
+	 */
 	@Test
 	public void startProcess() throws Exception {
 		
@@ -48,25 +55,77 @@ public class ProcessTestNextTask {
 		System.out.println("id " + processInstance.getId() + " "
 				+ processInstance.getProcessDefinitionId());
 		
-		TaskOperateService taskOperateService = new TaskOperateServiceImpl();
+		System.out.println("共有 "+taskService.createTaskQuery().count() + " 条流程");
 		
+	}
+	/**
+	 * 获取任务的下一个用户节点信息
+	 */
+	@Test
+	public void nextTasks(){
 		List<Task> tasks = getTasks();
-		
-		assertNotNull(tasks);
-		
 		for (Task task : tasks) {
 			TaskDefinition taskDefinition = taskOperateService.getNextTaskDefinition(task.getId());
-			System.out.println("当前节点是:"+task.getTaskDefinitionKey());
-			System.out.println("下个节点是:"+taskDefinition.getKey());
+			System.out.println("任务:" + task.getId());
+			System.out.println("      当前节点是:"+task.getTaskDefinitionKey());
+			
+			if(taskDefinition!=null){
+				
+				System.out.println("      下个节点是:"+taskDefinition.getKey());
+			}
 			
 		}
-		
-		assertNotNull(getTasks());
-		
+	}
+	
+	/**
+	 * 完成所有任务
+	 */
+	@Test
+	public void completeTasks(){
+		List<Task> tasks = getTasks();
+		for (Task task : tasks) {
+//			new Thread(new Runnable() {
+//				
+//				@Override
+//				public void run() {
+					taskService.complete(task.getId());
+					
+//				}
+//			}).start();
+		}
 	}
 	
 	
 	private List<Task> getTasks(){
-		return taskService.createTaskQuery().taskAssignee("admin").list();
+		return taskService.createTaskQuery().list();
+	}
+	
+	private void printSourceAndTargetTaskDefKey(TaskOperateService service){
+		while(getTasks()!=null&&getTasks().size()>0){
+			
+			List<Task> tasks = getTasks();
+			for (final Task task : tasks) {
+				
+				TaskDefinition taskDefinition = service.getNextTaskDefinition(task.getId());
+				System.out.println("当前节点是:"+task.getTaskDefinitionKey());
+				
+				if(taskDefinition!=null){
+					
+					System.out.println("下个节点是:"+taskDefinition.getKey());
+				}
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						taskService.complete(task.getId());
+						
+					}
+				}).start();
+				
+				System.out.println("完成当前任务!");
+				
+			}
+			
+		}
 	}
 }
