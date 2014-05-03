@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+    <bean id="bpmEngineConfiguration" class="com.myfeike.proxy.BpmEngineConfiguration">
         <property name="dataSource" ref="dataSource" />
         <property name="transactionManager" ref="transactionManager" />
         <property name="activityFontName" value="微软雅黑" />
@@ -18,17 +18,18 @@
         </property>
         <!-- 自定义行为 end -->
     </bean>
-    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean"
+    <bean id="bpmAdapter" class="com.myfeike.proxy.BpmFactoryBean"
           destroy-method="destroy">
-        <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+        <property name="bpmEngineConfiguration" ref="bpmEngineConfiguration" />
     </bean>
 
-    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
-    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
-    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
-    <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
-    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
-    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
-    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+    <bean id="repositoryService" factory-bean="bpmAdapter" factory-method="getRepositoryService" />
+    <bean id="runtimeService" factory-bean="bpmAdapter" factory-method="getRuntimeService" />
+    <bean id="taskService" factory-bean="bpmAdapter" factory-method="getTaskService" />
+    <bean id="formService" factory-bean="bpmAdapter" factory-method="getFormService" />
+    <bean id="historyService" factory-bean="bpmAdapter" factory-method="getHistoryService" />
+    <bean id="managementService" factory-bean="bpmAdapter" factory-method="getManagementService" />
+    <bean id="identityService" factory-bean="bpmAdapter" factory-method="getIdentityService" />
+    <bean id="taskOperateService" factory-bean="bpmAdapter" factory-method="getTaskOperateService"/>
 
 </beans>

@@ -1,4 +1,4 @@
-import com.myfeike.activiti.ITaskOperateService;
+import com.myfeike.activiti.TaskOperateService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -28,7 +28,7 @@ public class NextTaskTest extends AbstractBaseTest {
     TaskService taskService;
 
     @Autowired
-    ITaskOperateService taskOperateService;
+    TaskOperateService taskOperateService;
 
     @Autowired
     RepositoryService repositoryService;
