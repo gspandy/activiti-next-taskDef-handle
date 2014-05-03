@@ -1,6 +1,5 @@
 package com.myfeike.activiti;
 
-import org.activiti.engine.impl.cmd.CompleteTaskCmd;
 import org.activiti.engine.impl.task.TaskDefinition;
 
 import java.util.HashMap;
@@ -17,7 +16,7 @@ public class TaskOperateServiceImpl extends ActivitiServiceProxy implements Task
 		Map<String,Object> variables = new HashMap<String,Object>();
 		variables.put(NEXT_TASK_PROCESS_VARIABLE_NAME, true);
 		try{
-            commandExecutor.execute(new CompleteTaskCmd(taskId, variables));
+            taskService.complete(taskId, variables);
 		}catch(NextTaskException e){
 			return e.getTaskDefinition();
 		}
