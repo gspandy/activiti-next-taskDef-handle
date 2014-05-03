@@ -1,6 +1,6 @@
 package com.myfeike.proxy;
 
-import com.myfeike.activiti.ActivitiServiceProxy;
+import com.myfeike.proxy.service.ActivitiServiceProxy;
 import com.myfeike.activiti.TaskOperateService;
 import com.myfeike.activiti.TaskOperateServiceImpl;
 import org.activiti.spring.SpringProcessEngineConfiguration;

@@ -1,4 +1,4 @@
-package com.myfeike.activiti;
+package com.myfeike.proxy.service;
 
 import org.activiti.engine.*;
 import org.activiti.engine.impl.ServiceImpl;

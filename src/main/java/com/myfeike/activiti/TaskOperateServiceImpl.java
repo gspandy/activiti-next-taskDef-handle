@@ -1,5 +1,6 @@
 package com.myfeike.activiti;
 
+import com.myfeike.proxy.service.ActivitiServiceProxy;
 import org.activiti.engine.impl.task.TaskDefinition;
 
 import java.util.HashMap;

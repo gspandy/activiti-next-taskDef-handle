@@ -1,4 +1,4 @@
-import com.myfeike.activiti.ActivitiServiceProxy;
+import com.myfeike.proxy.service.ActivitiServiceProxy;
 import com.myfeike.activiti.TaskOperateService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
