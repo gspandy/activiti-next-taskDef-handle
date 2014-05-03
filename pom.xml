@@ -113,13 +113,6 @@
 
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>Activiti</id>
-            <url>http://maven.alfresco.com/nexus/content/repositories/activiti</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -131,6 +124,23 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+
+            <!-- 分析项目依赖 下载所有maven源码-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>

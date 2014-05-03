@@ -1,3 +1,4 @@
+import com.myfeike.activiti.ActivitiServiceProxy;
 import com.myfeike.activiti.TaskOperateService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -21,20 +22,20 @@ import static org.junit.Assert.assertNotNull;
  */
 public class NextTaskTest extends AbstractBaseTest {
 
-    @Autowired
     RuntimeService runtimeService;
 
-    @Autowired
     TaskService taskService;
 
     @Autowired
     TaskOperateService taskOperateService;
 
-    @Autowired
     RepositoryService repositoryService;
 
     @Before
     public void init(){
+        runtimeService = ((ActivitiServiceProxy)taskOperateService).getRuntimeService();
+        taskService = ((ActivitiServiceProxy)taskOperateService).getTaskService();
+        repositoryService = ((ActivitiServiceProxy)taskOperateService).getRepositoryService();
 
         repositoryService.createDeployment().addClasspathResource("diagrams/NextTask.bpmn").name("nextTask").deploy();
 

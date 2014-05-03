@@ -6,8 +6,6 @@
     <bean id="bpmEngineConfiguration" class="com.myfeike.proxy.BpmEngineConfiguration">
         <property name="dataSource" ref="dataSource" />
         <property name="transactionManager" ref="transactionManager" />
-        <property name="activityFontName" value="微软雅黑" />
-        <property name="labelFontName" value="微软雅黑" />
 
         <!-- 自定义元素执行行为 -->
         <property name="activityBehaviorFactory">
@@ -23,13 +21,6 @@
         <property name="bpmEngineConfiguration" ref="bpmEngineConfiguration" />
     </bean>
 
-    <bean id="repositoryService" factory-bean="bpmEngine" factory-method="getRepositoryService" />
-    <bean id="runtimeService" factory-bean="bpmEngine" factory-method="getRuntimeService" />
-    <bean id="taskService" factory-bean="bpmEngine" factory-method="getTaskService" />
-    <bean id="formService" factory-bean="bpmEngine" factory-method="getFormService" />
-    <bean id="historyService" factory-bean="bpmEngine" factory-method="getHistoryService" />
-    <bean id="managementService" factory-bean="bpmEngine" factory-method="getManagementService" />
-    <bean id="identityService" factory-bean="bpmEngine" factory-method="getIdentityService" />
     <bean id="taskOperateService" factory-bean="bpmEngine" factory-method="getTaskOperateService"/>
 
 </beans>

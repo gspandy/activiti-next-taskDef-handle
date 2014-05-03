@@ -1,6 +1,5 @@
 package com.myfeike.activiti;
 
-import org.activiti.engine.impl.ServiceImpl;
 import org.activiti.engine.impl.cmd.CompleteTaskCmd;
 import org.activiti.engine.impl.task.TaskDefinition;
 
@@ -10,7 +9,7 @@ import java.util.Map;
 /** 
  * @author  izerui.com
  */
-public class TaskOperateServiceImpl extends ServiceImpl implements TaskOperateService,NextTaskConstans{
+public class TaskOperateServiceImpl extends ActivitiServiceProxy implements TaskOperateService,NextTaskConstans{
 
 
 	@Override
