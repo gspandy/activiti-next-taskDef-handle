@@ -1,7 +1,6 @@
 package com.myfeike.service;
 
 import com.myfeike.NextActivitysContext;
-import com.myfeike.NextTaskConstans;
 import com.myfeike.activiti.listener.ActivityEventListener;
 import com.myfeike.activiti.proxy.ActivitiServiceProxy;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -10,14 +9,12 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
  * @author  izerui.com
  */
-public class TaskOperateServiceImpl extends ActivitiServiceProxy implements TaskOperateService,NextTaskConstans {
+public class TaskOperateServiceImpl extends ActivitiServiceProxy implements TaskOperateService {
 
 
     @Override
@@ -27,9 +24,7 @@ public class TaskOperateServiceImpl extends ActivitiServiceProxy implements Task
             @Override
             public Object doInTransaction(TransactionStatus status) {
                 runtimeService.addEventListener(new ActivityEventListener(), ActivitiEventType.ACTIVITY_STARTED);
-                Map<String,Object> variables = new HashMap<String,Object>();
-                variables.put(NEXT_TASK_PROCESS_VARIABLE_NAME, true);
-                taskService.complete(taskId, variables);
+                taskService.complete(taskId);
                 status.setRollbackOnly();
                 return null;
             }
