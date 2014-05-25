@@ -1,7 +1,8 @@
-package com.myfeike.proxy.service;
+package com.myfeike.activiti.proxy;
 
 import org.activiti.engine.*;
 import org.activiti.engine.impl.ServiceImpl;
+import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Created by izerui.com on 14-5-4.
@@ -14,6 +15,8 @@ public class ActivitiServiceProxy extends ServiceImpl{
     protected HistoryService historyService;
     protected ManagementService managementService;
     protected IdentityService identityService;
+    protected PlatformTransactionManager transactionManager;
+
 
     public RepositoryService getRepositoryService() {
         return repositoryService;
@@ -69,5 +72,9 @@ public class ActivitiServiceProxy extends ServiceImpl{
 
     public void setIdentityService(IdentityService identityService) {
         this.identityService = identityService;
+    }
+
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
     }
 }

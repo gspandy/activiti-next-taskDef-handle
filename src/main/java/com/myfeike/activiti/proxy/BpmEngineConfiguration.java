@@ -1,8 +1,7 @@
-package com.myfeike.proxy;
+package com.myfeike.activiti.proxy;
 
-import com.myfeike.proxy.service.ActivitiServiceProxy;
-import com.myfeike.activiti.TaskOperateService;
-import com.myfeike.activiti.TaskOperateServiceImpl;
+import com.myfeike.service.TaskOperateService;
+import com.myfeike.service.TaskOperateServiceImpl;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 
 /**
@@ -18,6 +17,7 @@ public class BpmEngineConfiguration extends SpringProcessEngineConfiguration{
         super();
         setActivityFontName("微软雅黑");
         setLabelFontName("微软雅黑");
+        setDatabaseSchemaUpdate("true");
     }
 
     @Override
@@ -36,6 +36,7 @@ public class BpmEngineConfiguration extends SpringProcessEngineConfiguration{
             ((ActivitiServiceProxy)service).setHistoryService(historyService);
             ((ActivitiServiceProxy)service).setIdentityService(identityService);
             ((ActivitiServiceProxy)service).setManagementService(managementService);
+            ((ActivitiServiceProxy)service).setTransactionManager(transactionManager);
         }
     }
 

@@ -1,6 +1,6 @@
-package com.myfeike.proxy;
+package com.myfeike.activiti.proxy;
 
-import com.myfeike.activiti.TaskOperateService;
+import com.myfeike.service.TaskOperateService;
 import org.activiti.engine.ProcessEngine;
 
 /**

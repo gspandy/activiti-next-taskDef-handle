@@ -1,6 +1,8 @@
-package com.myfeike.activiti;
+package com.myfeike.service;
 
-import org.activiti.engine.impl.task.TaskDefinition;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
+
+import java.util.Stack;
 
 /** 
  * @author  izerui.com
@@ -11,8 +13,8 @@ public interface TaskOperateService {
 	/**
 	 * 根据流程实例ID获取当前任务后面即将流转到的节点信息
 	 * @param taskId 任务ID
-	 * @return TaskDefinition
+	 * @return NextActivitys
 	 */
-	public TaskDefinition getNextTaskDefinition(String taskId);
+	public Stack<ActivityImpl> getNextActivitys(String taskId);
 
 }

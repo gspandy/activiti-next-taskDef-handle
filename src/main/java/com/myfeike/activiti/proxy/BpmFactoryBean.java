@@ -1,4 +1,4 @@
-package com.myfeike.proxy;
+package com.myfeike.activiti.proxy;
 
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.SpringBeanFactoryProxyMap;

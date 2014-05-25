@@ -1,9 +1,9 @@
-import com.myfeike.proxy.service.ActivitiServiceProxy;
-import com.myfeike.activiti.TaskOperateService;
+import com.myfeike.activiti.proxy.ActivitiServiceProxy;
+import com.myfeike.service.TaskOperateService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.task.TaskDefinition;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.After;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -44,9 +45,8 @@ public class NextTaskTest extends AbstractBaseTest {
 
     @After
     public void showTasks(){
-        taskService.createTaskQuery().list();
         Long num = taskService.createTaskQuery().count();
-        log.info("共有 {} 条流程",num);
+        log.info("共有 {} 个任务",num);
     }
 
     /**
@@ -73,13 +73,17 @@ public class NextTaskTest extends AbstractBaseTest {
     public void nextTasks(){
         List<Task> tasks = getTasks();
         for (Task task : tasks) {
-            TaskDefinition taskDefinition = taskOperateService.getNextTaskDefinition(task.getId());
+            Stack<ActivityImpl> activitys = taskOperateService.getNextActivitys(task.getId());
             log.info("任务:" + task.getId());
             log.info("      当前节点是:" + task.getTaskDefinitionKey());
 
-            if(taskDefinition!=null){
+            if(activitys!=null){
 
-                log.info("      下个节点是:" + taskDefinition.getKey());
+                while(!activitys.isEmpty()){
+                    log.info("      下个节点是:" + activitys.pop().getId());
+
+                }
+
             }else{
                 log.info("      下个节点是: 结束节点?");
             }
@@ -96,6 +100,14 @@ public class NextTaskTest extends AbstractBaseTest {
         for (Task task : tasks) {
             taskService.complete(task.getId());
 
+        }
+    }
+
+    @Test
+    public void deleteProcessInstances(){
+        List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().list();
+        for(ProcessInstance pi:list){
+            runtimeService.deleteProcessInstance(pi.getId(),"delete");
         }
     }
 
