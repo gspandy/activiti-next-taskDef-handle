@@ -9,7 +9,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.util.Stack;
+import java.util.List;
 
 /**
  * @author  izerui.com
@@ -18,19 +18,20 @@ public class TaskOperateServiceImpl extends ActivitiServiceProxy implements Task
 
 
     @Override
-    public Stack<ActivityImpl> getNextActivitys(final String taskId) {
+    public List<ActivityImpl> getNextActivitys(final String taskId) {
 
         new TransactionTemplate(transactionManager).execute(new TransactionCallback<Object>() {
             @Override
             public Object doInTransaction(TransactionStatus status) {
-                runtimeService.addEventListener(new ActivityEventListener(), ActivitiEventType.ACTIVITY_STARTED);
+                ActivityEventListener activityEventListener = new ActivityEventListener();
+                runtimeService.addEventListener(activityEventListener, ActivitiEventType.ACTIVITY_STARTED);
                 taskService.complete(taskId);
+                runtimeService.removeEventListener(activityEventListener);
                 status.setRollbackOnly();
                 return null;
             }
         });
         return NextActivitysContext.getActivitys();
-
     }
 
 }

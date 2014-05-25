@@ -2,7 +2,7 @@ package com.myfeike;
 
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by serv on 14-5-25.
@@ -13,16 +13,26 @@ public class NextActivitysContext {
 
 
     public static void addActivity(ActivityImpl activity) {
-        Stack<ActivityImpl> stack = getActivitys();
+        Stack<ActivityImpl> stack = getActivityStack();
         stack.push(activity);
         stackThreadLocal.set(stack);
     }
 
-    public static Stack<ActivityImpl> getActivitys(){
+    private static Stack<ActivityImpl> getActivityStack(){
         Stack<ActivityImpl> stack = stackThreadLocal.get();
         if(stack==null){
             stack = new Stack<ActivityImpl>();
         }
         return stack;
+    }
+
+    public static List<ActivityImpl> getActivitys(){
+        List<ActivityImpl> activities = new ArrayList<ActivityImpl>();
+        Stack<ActivityImpl> stack = getActivityStack();
+        while(!stack.isEmpty()){
+            activities.add(stack.pop());
+        }
+        Collections.reverse(activities);
+        return activities;
     }
 }

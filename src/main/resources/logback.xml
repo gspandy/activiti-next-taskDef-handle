@@ -22,75 +22,81 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="nexttask">
-        <level value="debug" />
+    <logger name="com.myfeike">
+        <level value="INFO" />
     </logger>
 
     <!-- 3rdparty Loggers -->
     <logger name="org.springframework.core">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework.beans">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework.context">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework.web.servlet">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger
         name="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework.security.core.userdetails">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <!-- for hibernate3 -->
     <logger name="org.hibernate.transaction">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <!-- for hibernate4 -->
     <logger name="org.hibernate.engine.transaction">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.hibernate.cfg.annotations.QueryBinder">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.hibernate.tool">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="jdbc.sqltiming">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
     <logger name="jdbc.resultsettable">
-        <level value="info" />
+        <level value="ERROR" />
     </logger>
     <logger name="jdbc.resultset">
-        <level value="warn" />
+        <level value="ERROR" />
     </logger>
 	<logger name="jdbc.sqlonly">
-		<level value="warn"/>
+		<level value="ERROR"/>
+	</logger>
+	<logger name="jdbc.connection">
+		<level value="ERROR"/>
 	</logger>
 	<logger name="jdbc.audit">
-		<level value="warn"/>
+		<level value="ERROR"/>
+	</logger>
+	<logger name="org.activiti.*">
+		<level value="ERROR"/>
 	</logger>
     <root>
-        <level value="info" />
+        <level value="INFO" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="ROLLING" />
     </root>

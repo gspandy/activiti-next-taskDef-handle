@@ -2,7 +2,7 @@ package com.myfeike.service;
 
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 
-import java.util.Stack;
+import java.util.List;
 
 /** 
  * @author  izerui.com
@@ -15,6 +15,6 @@ public interface TaskOperateService {
 	 * @param taskId 任务ID
 	 * @return NextActivitys
 	 */
-	public Stack<ActivityImpl> getNextActivitys(String taskId);
+	public List<ActivityImpl> getNextActivitys(String taskId);
 
 }

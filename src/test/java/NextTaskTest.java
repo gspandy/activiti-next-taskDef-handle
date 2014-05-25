@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -40,21 +39,10 @@ public class NextTaskTest extends AbstractBaseTest {
 
         repositoryService.createDeployment().addClasspathResource("diagrams/NextTask.bpmn").name("nextTask").deploy();
 
+        startProcess();
     }
 
-
-    @After
-    public void showTasks(){
-        Long num = taskService.createTaskQuery().count();
-        log.info("共有 {} 个任务",num);
-    }
-
-    /**
-     * 发起流程
-     * @throws Exception
-     */
-    @Test
-    public void startProcess() throws Exception {
+    public void startProcess() {
 
         Map<String, Object> variableMap = new HashMap<String, Object>();
         variableMap.put("name", "Activiti");
@@ -66,49 +54,40 @@ public class NextTaskTest extends AbstractBaseTest {
 
 
     }
+
+
+    @After
+    public void showTasks(){
+        Long num = taskService.createTaskQuery().count();
+        log.info("共有 {} 个任务",num);
+    }
+
     /**
      * 获取任务的下一个用户节点信息
      */
     @Test
     public void nextTasks(){
         List<Task> tasks = getTasks();
+        if(tasks==null||tasks.size()==0){
+            return;
+        }
         for (Task task : tasks) {
-            Stack<ActivityImpl> activitys = taskOperateService.getNextActivitys(task.getId());
+            List<ActivityImpl> activitys = taskOperateService.getNextActivitys(task.getId());
             log.info("任务:" + task.getId());
             log.info("      当前节点是:" + task.getTaskDefinitionKey());
 
             if(activitys!=null){
 
-                while(!activitys.isEmpty()){
-                    log.info("      下个节点是:" + activitys.pop().getId());
-
+                for(ActivityImpl activity:activitys){
+                    log.info("      下个节点是:" + activity.getId());
                 }
 
-            }else{
-                log.info("      下个节点是: 结束节点?");
             }
 
-        }
-    }
-
-    /**
-     * 完成所有任务
-     */
-    @Test
-    public void completeTasks(){
-        List<Task> tasks = getTasks();
-        for (Task task : tasks) {
             taskService.complete(task.getId());
 
         }
-    }
-
-    @Test
-    public void deleteProcessInstances(){
-        List<ProcessInstance> list = runtimeService.createProcessInstanceQuery().list();
-        for(ProcessInstance pi:list){
-            runtimeService.deleteProcessInstance(pi.getId(),"delete");
-        }
+        nextTasks();
     }
 
 
